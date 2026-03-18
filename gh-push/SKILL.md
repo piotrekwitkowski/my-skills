@@ -271,6 +271,7 @@ echo "Pushed $NEW_COMMIT to $BRANCH"
 - **Rate limits** — each blob creation is one API call. For repos with 100+ files changing, batch work or consider using the GraphQL `createCommitOnBranch` mutation instead.
 - **Max file size** — the Contents API has a 100MB limit per file. The Blobs API has a 100MB limit too but is more reliable for large files.
 - **Piping JSON to `gh api`** — use `echo '...' | gh api ... --input -` rather than heredocs with `--input -`, which can be unreliable with variable interpolation.
+- **Multi-line commit messages break `echo` piping** — literal `\n` in JSON strings passed via `echo '...' | gh api --input -` causes `Problems parsing JSON (HTTP 400)`. The `echo` command passes `\n` as two literal characters, not a newline. Fix: use `printf` to write JSON to a temp file, then pass it with `--input /tmp/payload.json`. Example: `printf '{"message":"line1\nline2","tree":"%s","parents":["%s"]}' "$TREE" "$PARENT" > /tmp/commit.json && gh api repos/OWNER/REPO/git/commits --input /tmp/commit.json`.
 
 ## GraphQL Alternative: `createCommitOnBranch`
 
