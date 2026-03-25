@@ -7,6 +7,7 @@ Custom AI coding skills.
 | Skill | Description |
 |-------|-------------|
 | [gh-push](./gh-push/SKILL.md) | Push code to GitHub without `git push` — uses `gh` CLI and GitHub API exclusively |
+| [slide-builder](./slide-builder/SKILL.md) | Build and modify PowerPoint (PPTX) presentations programmatically using python-pptx |
 
 ## Installation (OpenCode)
 
